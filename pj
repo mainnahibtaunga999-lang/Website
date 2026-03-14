@@ -1,0 +1,2685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pooja Jaiswani — Timeless Style</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE6D6;
+    --cream-mid: #F9F6F0;
+    --maroon: #6B1E2A;
+    --maroon-light: #8B2E3E;
+    --maroon-deep: #4A1019;
+    --gold: #C9A84C;
+    --text-dark: #1A0A0D;
+    --text-mid: #4A3040;
+    --text-light: #9A8090;
+    --white: #FDFAF5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--maroon);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+  }
+  .cursor-follower {
+    width: 32px; height: 32px;
+    border: 1px solid var(--maroon);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.18s ease;
+    opacity: 0.6;
+  }
+  .cursor-follower.hovering { transform: translate(-50%,-50%) scale(1.8); opacity: 0.3; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--maroon); }
+
+  /* PAGE LOADER */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--maroon-deep);
+    z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--cream);
+    letter-spacing: 0.3em;
+    font-weight: 300;
+    overflow: hidden;
+  }
+  .loader-text span {
+    display: inline-block;
+    animation: loaderReveal 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  .loader-line {
+    width: 0; height: 1px;
+    background: var(--gold);
+    margin-top: 1.5rem;
+    animation: loaderLine 1.2s ease forwards 0.6s;
+  }
+  @keyframes loaderReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes loaderLine {
+    to { width: 200px; }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 1.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.5s ease;
+  }
+  nav.scrolled {
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(20px);
+    padding: 1rem 4rem;
+    box-shadow: 0 1px 0 rgba(107,30,42,0.1);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--maroon);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: none;
+  }
+  .nav-logo span { font-style: italic; font-weight: 300; }
+  .nav-links {
+    display: flex; gap: 2.5rem; align-items: center;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+    cursor: none;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--maroon);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--maroon); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-icons { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-icon {
+    color: var(--text-mid);
+    cursor: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-icon:hover { color: var(--maroon); }
+  .cart-count {
+    position: absolute; top: -8px; right: -8px;
+    width: 16px; height: 16px;
+    background: var(--maroon);
+    color: var(--cream);
+    border-radius: 50%;
+    font-size: 0.55rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: none; background: none; border: none;
+  }
+  .hamburger span {
+    width: 24px; height: 1px;
+    background: var(--maroon);
+    transition: all 0.3s;
+    display: block;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--cream);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(107,30,42,0.06) 0%, transparent 70%);
+  }
+  .hero-texture {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236B1E2A' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content {
+    padding: 0 4rem;
+    max-width: 700px;
+    position: relative; z-index: 1;
+    opacity: 0;
+    animation: heroReveal 1.2s cubic-bezier(0.16,1,0.3,1) forwards 1.8s;
+  }
+  @keyframes heroReveal {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--maroon);
+  }
+  .hero-subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    line-height: 2;
+    margin-bottom: 3rem;
+    max-width: 420px;
+  }
+  .hero-cta {
+    display: flex; gap: 1.5rem; align-items: center;
+  }
+  .btn-primary {
+    padding: 1rem 2.5rem;
+    background: var(--maroon);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    border: none; cursor: none;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--maroon-deep);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-secondary {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    text-decoration: none;
+    cursor: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--maroon); }
+  .hero-image-side {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 42%;
+    overflow: hidden;
+    opacity: 0;
+    animation: heroImageReveal 1.4s cubic-bezier(0.16,1,0.3,1) forwards 2s;
+  }
+  @keyframes heroImageReveal {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .hero-image-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-deep) 60%, #2A0510 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .hero-image-placeholder svg { opacity: 0.2; }
+  .hero-img-text {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--cream);
+    opacity: 0.3;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem; left: 4rem;
+    display: flex; align-items: center; gap: 1rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 2.8s;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--maroon));
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%,100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.5; }
+  }
+  .scroll-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    writing-mode: vertical-rl;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    background: var(--maroon);
+    padding: 1rem 0;
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.7;
+    padding: 0 2rem;
+    flex-shrink: 0;
+  }
+  .marquee-dot {
+    color: var(--gold);
+    opacity: 1;
+    padding: 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS COMMON */
+  section { padding: 8rem 4rem; }
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--maroon); }
+
+  /* REVEAL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* FEATURED CATEGORIES */
+  #categories {
+    background: var(--cream-mid);
+    padding: 7rem 4rem;
+  }
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .category-card {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    background: var(--maroon);
+  }
+  .category-card::before {
+    content: '';
+    display: block;
+    padding-top: 130%;
+  }
+  .category-img {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, var(--maroon-light) 0%, var(--maroon-deep) 100%);
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .category-card:hover .category-img { transform: scale(1.05); }
+  .category-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,10,13,0.85) 0%, transparent 60%);
+    z-index: 1;
+  }
+  .category-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.8rem;
+    z-index: 2;
+    transform: translateY(10px);
+    transition: transform 0.4s ease;
+  }
+  .category-card:hover .category-info { transform: translateY(0); }
+  .category-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
+  .category-count {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.3rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.4s ease 0.1s;
+  }
+  .category-card:hover .category-count { opacity: 1; transform: translateY(0); }
+  .category-placeholder-icon { opacity: 0.15; }
+
+  /* BESTSELLERS */
+  #shop { background: var(--cream); }
+  .shop-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .shop-filters {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 0.5rem 1.2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid var(--cream-dark);
+    background: transparent;
+    color: var(--text-mid);
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--maroon);
+    color: var(--cream);
+    border-color: var(--maroon);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .product-card {
+    cursor: none;
+    position: relative;
+  }
+  .product-img-wrap {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream-dark);
+  }
+  .product-img-wrap::before {
+    content: '';
+    display: block;
+    padding-top: 135%;
+  }
+  .product-img {
+    position: absolute; inset: 0;
+    background: linear-gradient(145deg, #EDE6D6 0%, #D5C9B8 100%);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .product-card:hover .product-img { transform: scale(1.04); }
+  .product-actions {
+    position: absolute; bottom: 1rem; left: 1rem; right: 1rem;
+    display: flex; gap: 0.5rem;
+    opacity: 0; transform: translateY(10px);
+    transition: all 0.35s ease;
+    z-index: 2;
+  }
+  .product-card:hover .product-actions { opacity: 1; transform: translateY(0); }
+  .action-btn {
+    flex: 1; padding: 0.7rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none; cursor: none;
+    transition: all 0.3s;
+  }
+  .action-btn-cart {
+    background: var(--maroon);
+    color: var(--cream);
+  }
+  .action-btn-cart:hover { background: var(--maroon-deep); }
+  .action-btn-wa {
+    background: rgba(245,240,232,0.9);
+    color: var(--maroon);
+    flex: 0;
+    padding: 0.7rem 0.8rem;
+  }
+  .badge-bestseller {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--maroon);
+    color: var(--cream);
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    z-index: 2;
+  }
+  .badge-sale {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--gold);
+    color: var(--white);
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    z-index: 2;
+  }
+  .product-info { padding: 1rem 0; }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-bottom: 0.3rem;
+  }
+  .product-category-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+  }
+  .product-price {
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .price-current {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--maroon);
+    letter-spacing: 0.05em;
+  }
+  .price-original {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-decoration: line-through;
+  }
+  .load-more {
+    display: flex; justify-content: center;
+    margin-top: 4rem;
+  }
+  .btn-outline {
+    padding: 1rem 3rem;
+    border: 1px solid var(--maroon);
+    background: transparent;
+    color: var(--maroon);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-outline::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--maroon);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    z-index: 0;
+  }
+  .btn-outline:hover { color: var(--cream); }
+  .btn-outline:hover::before { transform: translateX(0); }
+  .btn-outline span { position: relative; z-index: 1; }
+
+  /* ABOUT STRIP */
+  #about {
+    background: var(--maroon-deep);
+    padding: 7rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-left .section-label { color: var(--gold); }
+  .about-left .section-label::before { background: var(--gold); }
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+  .about-title em { font-style: italic; color: var(--gold); }
+  .about-body {
+    font-size: 0.78rem;
+    line-height: 2.1;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 2.5rem;
+  }
+  .about-stats {
+    display: flex; gap: 3rem;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-top: 0.3rem;
+    display: block;
+  }
+  .about-right {
+    position: relative;
+  }
+  .about-img-main {
+    width: 100%; aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--maroon) 0%, rgba(74,16,25,0.5) 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .about-img-accent {
+    position: absolute;
+    bottom: -2rem; left: -2rem;
+    width: 55%;
+    aspect-ratio: 1;
+    background: var(--maroon);
+    border: 4px solid var(--maroon-deep);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-img-text {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--cream);
+    opacity: 0.15;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* TESTIMONIALS */
+  #testimonials {
+    background: var(--cream-mid);
+    text-align: center;
+    padding: 7rem 4rem;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+  .testimonial-card {
+    background: var(--white);
+    padding: 2.5rem;
+    position: relative;
+    border: 1px solid rgba(107,30,42,0.06);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(107,30,42,0.08);
+  }
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    color: var(--maroon);
+    opacity: 0.15;
+    line-height: 0.5;
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-mid);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-author {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .contact-left {
+    background: var(--maroon);
+    padding: 7rem 5rem;
+  }
+  .contact-left .section-label { color: var(--gold); }
+  .contact-left .section-label::before { background: var(--gold); }
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 2.5rem;
+  }
+  .contact-info-item {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+  .contact-icon {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(245,240,232,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+  .contact-detail-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 0.3rem;
+  }
+  .contact-detail-value {
+    font-size: 0.8rem;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+  .contact-socials {
+    display: flex; gap: 1rem; margin-top: 3rem;
+  }
+  .social-link {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(245,240,232,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--cream);
+    text-decoration: none; cursor: none;
+    transition: all 0.3s;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+  .social-link:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--maroon-deep);
+  }
+  .contact-right {
+    background: var(--cream-mid);
+    padding: 7rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+  .form-input, .form-textarea {
+    padding: 1rem;
+    background: var(--white);
+    border: 1px solid rgba(107,30,42,0.1);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.3s;
+    cursor: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--maroon); }
+  .form-textarea { min-height: 120px; resize: vertical; }
+  .contact-wa-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+    padding: 1rem 2rem;
+    background: #25D366;
+    color: white;
+    text-decoration: none; cursor: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    margin-top: 0.5rem;
+  }
+  .contact-wa-btn:hover { background: #1DA851; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text-dark);
+    padding: 5rem 4rem 2rem;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+  .footer-logo span { font-style: italic; color: var(--gold); }
+  .footer-tagline {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+    margin-bottom: 1.5rem;
+  }
+  .footer-desc {
+    font-size: 0.75rem;
+    line-height: 2;
+    color: rgba(245,240,232,0.4);
+  }
+  .footer-col-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .footer-links a {
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.4);
+    text-decoration: none; cursor: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,240,232,0.25);
+  }
+  .footer-bottom-links {
+    display: flex; gap: 2rem;
+  }
+  .footer-bottom-links a {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.25);
+    text-decoration: none; cursor: none;
+    transition: color 0.3s;
+  }
+  .footer-bottom-links a:hover { color: rgba(245,240,232,0.6); }
+
+  /* CART SIDEBAR */
+  #cart-sidebar {
+    position: fixed; top: 0; right: -420px;
+    width: 420px; height: 100vh;
+    background: var(--white);
+    z-index: 2000;
+    padding: 2rem;
+    transition: right 0.5s cubic-bezier(0.16,1,0.3,1);
+    box-shadow: -20px 0 60px rgba(26,10,13,0.1);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  #cart-sidebar.open { right: 0; }
+  .cart-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .cart-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text-dark);
+  }
+  .cart-close {
+    width: 36px; height: 36px;
+    background: none; border: 1px solid var(--cream-dark);
+    cursor: none; display: flex; align-items: center; justify-content: center;
+    color: var(--text-mid); transition: all 0.3s;
+  }
+  .cart-close:hover { background: var(--maroon); color: var(--cream); border-color: var(--maroon); }
+  .cart-items { flex: 1; }
+  .cart-empty {
+    text-align: center; padding: 4rem 0;
+    color: var(--text-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+  .cart-item {
+    display: flex; gap: 1rem; align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .cart-item-img {
+    width: 70px; height: 90px; flex-shrink: 0;
+    background: var(--cream-dark);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; margin-bottom: 0.2rem;
+  }
+  .cart-item-price { font-size: 0.75rem; color: var(--maroon); font-weight: 500; }
+  .cart-item-remove {
+    background: none; border: none; cursor: none;
+    color: var(--text-light); font-size: 0.8rem;
+    transition: color 0.3s;
+  }
+  .cart-item-remove:hover { color: var(--maroon); }
+  .cart-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--cream-dark);
+  }
+  .cart-total {
+    display: flex; justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .cart-total-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+  .cart-total-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--maroon);
+  }
+  .cart-wa-checkout {
+    display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+    width: 100%; padding: 1rem;
+    background: var(--maroon);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none; cursor: none;
+    transition: background 0.3s;
+  }
+  .cart-wa-checkout:hover { background: var(--maroon-deep); }
+  #cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(26,10,13,0.4);
+    z-index: 1999;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  #cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  /* ADMIN PANEL */
+  #admin-panel {
+    display: none;
+    position: fixed; inset: 0;
+    background: #0F0608;
+    z-index: 5000;
+    overflow-y: auto;
+  }
+  #admin-login {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, rgba(107,30,42,0.3) 0%, transparent 70%);
+  }
+  .admin-login-box {
+    width: 380px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(107,30,42,0.3);
+    padding: 3rem;
+  }
+  .admin-login-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+  }
+  .admin-login-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+  .admin-input {
+    width: 100%; padding: 0.9rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(107,30,42,0.4);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    outline: none;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+  }
+  .admin-input:focus { border-color: var(--gold); }
+  .admin-login-btn {
+    width: 100%; padding: 0.9rem;
+    background: var(--maroon);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none; cursor: none;
+    transition: background 0.3s;
+    margin-top: 0.5rem;
+  }
+  .admin-login-btn:hover { background: var(--maroon-light); }
+  .admin-error {
+    font-size: 0.7rem;
+    color: #FF6B6B;
+    margin-top: 0.5rem;
+    display: none;
+    text-align: center;
+  }
+  #admin-dashboard { display: none; padding: 2rem; min-height: 100vh; }
+  .admin-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(107,30,42,0.3);
+    margin-bottom: 2rem;
+  }
+  .admin-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--cream);
+    font-weight: 300;
+  }
+  .admin-brand span { color: var(--gold); font-style: italic; }
+  .admin-exit {
+    padding: 0.5rem 1.2rem;
+    background: none;
+    border: 1px solid rgba(107,30,42,0.5);
+    color: var(--text-light);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .admin-exit:hover { border-color: var(--gold); color: var(--gold); }
+  .admin-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+  }
+  .admin-tab {
+    padding: 0.6rem 1.4rem;
+    background: none;
+    border: 1px solid rgba(107,30,42,0.3);
+    color: rgba(245,240,232,0.4);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .admin-tab.active { background: var(--maroon); color: var(--cream); border-color: var(--maroon); }
+  .admin-tab:hover:not(.active) { color: var(--cream); border-color: rgba(107,30,42,0.7); }
+  .admin-section { display: none; }
+  .admin-section.active { display: block; }
+  .admin-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--cream);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(107,30,42,0.2);
+  }
+  .admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .admin-field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .admin-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .admin-input-dark {
+    padding: 0.8rem 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(107,30,42,0.3);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .admin-input-dark:focus { border-color: var(--gold); }
+  .admin-save-btn {
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    background: var(--maroon);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none; cursor: none;
+    transition: all 0.3s;
+  }
+  .admin-save-btn:hover { background: var(--maroon-light); }
+  .admin-success {
+    font-size: 0.7rem;
+    color: #4CAF50;
+    margin-left: 1rem;
+    display: none;
+  }
+  /* Products Admin */
+  .admin-products-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .admin-add-btn {
+    padding: 0.6rem 1.5rem;
+    background: var(--gold);
+    color: var(--maroon-deep);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none; cursor: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .admin-add-btn:hover { background: #B8973B; }
+  .admin-products-list { display: flex; flex-direction: column; gap: 1rem; }
+  .admin-product-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(107,30,42,0.2);
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: center;
+  }
+  .admin-product-field { display: flex; flex-direction: column; gap: 0.3rem; }
+  .admin-product-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+  }
+  .admin-product-input {
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(107,30,42,0.3);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    padding: 0.3rem 0;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .admin-product-input:focus { border-color: var(--gold); }
+  .admin-checkbox-group {
+    display: flex; gap: 0.8rem; align-items: center;
+  }
+  .admin-checkbox { accent-color: var(--maroon); width: 14px; height: 14px; cursor: none; }
+  .admin-checkbox-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+  }
+  .admin-delete-btn {
+    padding: 0.5rem 0.8rem;
+    background: none;
+    border: 1px solid rgba(255,100,100,0.2);
+    color: rgba(255,100,100,0.5);
+    cursor: none;
+    font-size: 0.7rem;
+    transition: all 0.3s;
+  }
+  .admin-delete-btn:hover { background: rgba(255,100,100,0.1); color: rgba(255,100,100,0.9); border-color: rgba(255,100,100,0.5); }
+  .admin-full-width { grid-column: 1 / -1; }
+  .admin-checkbox-row {
+    display: flex; gap: 1.5rem; align-items: center;
+    padding: 0.5rem 0;
+  }
+
+  /* MOBILE NAV */
+  .mobile-menu {
+    display: none;
+    position: fixed; inset: 0;
+    background: var(--cream);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--maroon);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    cursor: none;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--maroon-deep); }
+  .mobile-menu-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none; cursor: none;
+    font-size: 1.5rem; color: var(--maroon);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .products-grid { grid-template-columns: repeat(3, 1fr); }
+    .categories-grid { grid-template-columns: repeat(2, 1fr); }
+    #about { grid-template-columns: 1fr; gap: 4rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    #contact { grid-template-columns: 1fr; }
+    .contact-left, .contact-right { padding: 5rem 3rem; }
+    .admin-product-item { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav.scrolled { padding: 0.8rem 1.5rem; }
+    .nav-links, .nav-icons { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 5rem 1.5rem; }
+    .hero-content { padding: 0 1.5rem; padding-top: 5rem; }
+    .hero-image-side { display: none; }
+    .hero-title { font-size: 3rem; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .categories-grid { grid-template-columns: 1fr 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stats { gap: 1.5rem; }
+    #cart-sidebar { width: 100%; right: -100%; }
+    .admin-grid { grid-template-columns: 1fr; }
+    .admin-product-item { grid-template-columns: 1fr; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-text">
+    <span style="animation-delay:0.1s">P</span><span style="animation-delay:0.15s">O</span><span style="animation-delay:0.2s">O</span><span style="animation-delay:0.25s">J</span><span style="animation-delay:0.3s">A</span>&nbsp;<span style="animation-delay:0.4s">J</span><span style="animation-delay:0.45s">A</span><span style="animation-delay:0.5s">I</span><span style="animation-delay:0.55s">S</span><span style="animation-delay:0.6s">W</span><span style="animation-delay:0.65s">A</span><span style="animation-delay:0.7s">N</span><span style="animation-delay:0.75s">I</span>
+  </div>
+  <div class="loader-line"></div>
+</div>
+
+<!-- Announcement Bar -->
+<div id="announcement-bar" style="display:none;background:var(--maroon);color:var(--cream);text-align:center;padding:0.6rem 1rem;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;position:relative;z-index:999;"></div>
+
+<!-- Cart Overlay -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+
+<!-- Cart Sidebar -->
+<div id="cart-sidebar">
+  <div class="cart-header">
+    <div class="cart-title">Your Cart</div>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-container">
+    <div class="cart-empty">Your cart is empty</div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-value" id="cart-total-display">₹0</span>
+    </div>
+    <button class="cart-wa-checkout" onclick="checkoutWhatsApp()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#hero" onclick="closeMobileMenu()">Home</a>
+  <a href="#shop" onclick="closeMobileMenu()">Shop</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Pooja <span>Jaiswani</span></a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#categories">Collections</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a id="insta-nav-link" href="https://instagram.com/poojajaiswani.in" target="_blank" class="nav-icon" title="Instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <div class="nav-icon" onclick="openCart()" style="position:relative">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </div>
+    <button class="hamburger" onclick="openMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Women's Fashion · Tikamgarh</div>
+    <h1 class="hero-title">
+      Dress with<br><em>Timeless</em><br>Elegance
+    </h1>
+    <p class="hero-subtitle">Curated women's wear crafted for the woman who values grace, quality, and enduring style. From everyday elegance to special occasions.</p>
+    <div class="hero-cta">
+      <a href="#shop" class="btn-primary"><span>Explore Collection</span></a>
+      <a href="#about" class="btn-secondary">Our Story →</a>
+    </div>
+  </div>
+  <div class="hero-image-side">
+    <div class="hero-image-placeholder">
+      <svg class="hero-image-placeholder" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#F5F0E8" stroke-width="0.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="hero-img-text">Add Your Model Photo</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Kurtis</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Lehengas</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Palazzo Sets</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Anarkalis</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Indo-Western</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Ethnic Wear</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Casual Wear</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Party Wear</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Timeless Style</span><span class="marquee-item marquee-dot">✦</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">Kurtis</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Lehengas</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Palazzo Sets</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Anarkalis</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Indo-Western</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Ethnic Wear</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Casual Wear</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Party Wear</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Timeless Style</span><span class="marquee-item marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-label reveal" id="collections-label">Collections</div>
+  <h2 class="section-title reveal reveal-delay-1" id="collections-title">Shop by <em>Category</em></h2>
+  <div class="categories-grid" id="categories-grid">
+    <!-- Rendered by JS -->
+  </div>
+</section>
+
+<!-- SHOP / PRODUCTS -->
+<section id="shop">
+  <div class="shop-header">
+    <div>
+      <div class="section-label reveal" id="shop-label">Our Products</div>
+      <h2 class="section-title reveal reveal-delay-1" id="shop-title">Featured <em>Pieces</em></h2>
+    </div>
+    <div class="shop-filters reveal">
+      <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+      <button class="filter-btn" onclick="filterProducts('bestseller', this)">Bestsellers</button>
+      <button class="filter-btn" onclick="filterProducts('sale', this)">On Sale</button>
+    </div>
+  </div>
+  <div class="products-grid" id="products-grid">
+    <!-- Rendered by JS -->
+  </div>
+  <div class="load-more">
+    <button class="btn-outline" onclick="loadMore()"><span>View All Products</span></button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <div class="section-label reveal" id="about-label">Our Story</div>
+    <h2 class="about-title reveal reveal-delay-1" id="about-title">Fashion rooted in<br><em>tradition,</em><br>crafted for today</h2>
+    <p class="about-body reveal reveal-delay-2">
+      Pooja Jaiswani is a women's fashion brand born in the heart of Tikamgarh, built on years of passion for beautiful, wearable clothing. We believe every woman deserves to feel elegant in her everyday life — not just on special occasions.<br><br>
+      From festive lehengas to comfortable daily kurtis, every piece in our collection is chosen with care, quality, and the modern Indian woman in mind.
+    </p>
+    <div class="about-stats reveal reveal-delay-3">
+      <div>
+        <span class="stat-num" id="stat1-num">10+</span>
+        <span class="stat-label" id="stat1-label">Years of Style</span>
+      </div>
+      <div>
+        <span class="stat-num" id="stat2-num">1000+</span>
+        <span class="stat-label" id="stat2-label">Happy Customers</span>
+      </div>
+      <div>
+        <span class="stat-num" id="stat3-num">100s</span>
+        <span class="stat-label" id="stat3-label">Unique Pieces</span>
+      </div>
+    </div>
+  </div>
+  <div class="about-right reveal reveal-delay-2">
+    <div class="about-img-main">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.15)" stroke-width="0.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="about-img-accent">
+      <div class="about-img-text">Add<br>Your<br>Photo</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label reveal" style="justify-content:center">What Customers Say</div>
+  <h2 class="section-title reveal reveal-delay-1" id="testi-title">Loved by <em>Women</em> Everywhere</h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-stars" id="t1-stars">★★★★★</div>
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text" id="t1-text">The quality of the fabric is exceptional. I ordered a kurti set and received so many compliments at the office!</p>
+      <div class="testimonial-author" id="t1-author">Priya S. — Tikamgarh</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-stars" id="t2-stars">★★★★★</div>
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text" id="t2-text">Ordered a lehenga for my cousin's wedding. The fit, the embroidery, the color — everything was perfect. Will definitely order again.</p>
+      <div class="testimonial-author" id="t2-author">Neha R. — Sagar</div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-3">
+      <div class="testimonial-stars" id="t3-stars">★★★★★</div>
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text" id="t3-text">So glad I found Pooja Jaiswani. The designs are so elegant and the prices are very reasonable. Highly recommend!</p>
+      <div class="testimonial-author" id="t3-author">Anjali M. — Jhansi</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left">
+    <div class="section-label reveal">Get in Touch</div>
+    <h2 class="contact-title reveal reveal-delay-1" id="contact-title">Visit Us or<br>Order Online</h2>
+    <div class="contact-info-item reveal reveal-delay-2">
+      <div class="contact-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div>
+        <div class="contact-detail-label">Location</div>
+        <div class="contact-detail-value" id="contact-address-display">Rajmahal Road, Tikamgarh<br>Madhya Pradesh</div>
+      </div>
+    </div>
+    <div class="contact-info-item reveal reveal-delay-2">
+      <div class="contact-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div>
+        <div class="contact-detail-label">Phone / WhatsApp</div>
+        <div class="contact-detail-value" id="contact-phone-display">+91 8770329935</div>
+      </div>
+    </div>
+    <div class="contact-info-item reveal reveal-delay-3">
+      <div class="contact-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div>
+        <div class="contact-detail-label">Email</div>
+        <div class="contact-detail-value" id="contact-email-display"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="add4c2d8dfc3ccc0c8edc8c0ccc4c183cec2c0">[email&#160;protected]</a></div>
+      </div>
+    </div>
+    <div class="contact-socials reveal reveal-delay-4">
+      <a id="insta-contact-link" href="https://instagram.com/poojajaiswani.in" target="_blank" class="social-link" title="Instagram">IG</a>
+      <a id="fb-contact-link" href="#" target="_blank" class="social-link" title="Facebook">FB</a>
+      <a id="wa-contact-link" href="https://wa.me/918770329935" target="_blank" class="social-link" title="WhatsApp">WA</a>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="section-label reveal">Send a Message</div>
+    <h3 class="section-title reveal reveal-delay-1" style="font-size:2rem; margin-bottom:2rem">Let's <em>Connect</em></h3>
+    <div class="contact-form reveal reveal-delay-2">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" type="text" placeholder="Priya Sharma" id="contactName">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone / WhatsApp</label>
+        <input class="form-input" type="tel" placeholder="+91 99999 00000" id="contactPhone">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="I'm interested in..." id="contactMessage"></textarea>
+      </div>
+      <button class="btn-primary" onclick="sendToWhatsApp()" style="cursor:none"><span>Send via WhatsApp</span></button>
+      <a id="insta-dm-btn" href="https://instagram.com/poojajaiswani.in" target="_blank" style="text-align:center; display:block; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--maroon); text-decoration:none; padding-top:0.5rem; transition: opacity 0.3s; cursor:none">Or DM on Instagram →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Pooja <span>Jaiswani</span></div>
+      <div class="footer-tagline">Timeless Style</div>
+      <p class="footer-desc" id="footer-desc">Women's fashion rooted in elegance, crafted for the modern Indian woman. Serving customers from Tikamgarh with love.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <ul class="footer-links">
+        <li><a href="#shop">All Products</a></li>
+        <li><a href="#categories">Kurtis</a></li>
+        <li><a href="#categories">Lehengas</a></li>
+        <li><a href="#categories">Anarkalis</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Info</div>
+      <ul class="footer-links">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Visit Store</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <ul class="footer-links">
+        <li><a id="insta-footer-link" href="https://instagram.com/poojajaiswani.in" target="_blank">Instagram</a></li>
+        <li><a id="fb-footer-link" href="#" target="_blank">Facebook</a></li>
+        <li><a id="wa-footer-link" href="https://wa.me/918770329935" target="_blank">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy" id="footer-copy">© 2025 Pooja Jaiswani. All rights reserved. Rajmahal Road, Tikamgarh.</div>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#" onclick="openAdmin(event)">Admin</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <!-- Login -->
+  <div id="admin-login">
+    <div class="admin-login-box">
+      <div class="admin-login-title">Admin Panel</div>
+      <div class="admin-login-sub">Pooja Jaiswani · Secure Access</div>
+      <input class="admin-input" type="password" id="admin-password-input" placeholder="Enter Password" onkeypress="if(event.key==='Enter')adminLogin()">
+      <button class="admin-login-btn" onclick="adminLogin()">Enter</button>
+      <div class="admin-error" id="admin-error">Incorrect password. Try again.</div>
+      <div style="margin-top:1.5rem; font-size:0.55rem; color:rgba(245,240,232,0.2); letter-spacing:0.1em; text-align:center;">Default password: admin123 — Change in Settings</div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="admin-dashboard">
+    <div class="admin-topbar">
+      <div class="admin-brand">Pooja <span>Jaiswani</span> — Admin</div>
+      <button class="admin-exit" onclick="closeAdmin()">✕ Exit Panel</button>
+    </div>
+
+    <div style="padding: 0 2rem;">
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchTab('products', this)">Products</button>
+        <button class="admin-tab" onclick="switchTab('settings', this)">Brand Settings</button>
+        <button class="admin-tab" onclick="switchTab('socials', this)">Social & Contact</button>
+        <button class="admin-tab" onclick="switchTab('frontend', this)">🎨 Frontend Control</button>
+        <button class="admin-tab" onclick="switchTab('security', this)">Security</button>
+      </div>
+
+      <!-- PRODUCTS TAB -->
+      <div class="admin-section active" id="tab-products">
+        <div class="admin-section-title">Manage Products</div>
+        <div class="admin-products-header">
+          <div style="font-size:0.7rem; color:rgba(245,240,232,0.4); letter-spacing:0.1em;">All changes are saved automatically and reflect on site.</div>
+          <button class="admin-add-btn" onclick="addProduct()">+ Add New Product</button>
+        </div>
+        <div class="admin-products-list" id="admin-products-list"></div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="admin-section" id="tab-settings">
+        <div class="admin-section-title">Brand Settings</div>
+        <div class="admin-grid">
+          <div class="admin-field">
+            <label class="admin-label">Brand Name</label>
+            <input class="admin-input-dark" id="setting-brand-name" value="Pooja Jaiswani">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Tagline</label>
+            <input class="admin-input-dark" id="setting-tagline" value="Timeless Style">
+          </div>
+          <div class="admin-field admin-full-width">
+            <label class="admin-label">About / Brand Story</label>
+            <textarea class="admin-input-dark" id="setting-about" rows="4" style="resize:vertical">Pooja Jaiswani is a women's fashion brand born in the heart of Tikamgarh, built on years of passion for beautiful, wearable clothing.</textarea>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Hero Title Line 1</label>
+            <input class="admin-input-dark" id="setting-hero1" value="Dress with">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Hero Title Line 2 (highlighted)</label>
+            <input class="admin-input-dark" id="setting-hero2" value="Timeless">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Hero Title Line 3</label>
+            <input class="admin-input-dark" id="setting-hero3" value="Elegance">
+          </div>
+          <div class="admin-field admin-full-width">
+            <label class="admin-label">Hero Subtitle Text</label>
+            <textarea class="admin-input-dark" id="setting-hero-sub" rows="2" style="resize:vertical">Curated women's wear crafted for the woman who values grace, quality, and enduring style.</textarea>
+          </div>
+        </div>
+        <button class="admin-save-btn" onclick="saveSettings()">Save Settings <span class="admin-success" id="settings-success">✓ Saved!</span></button>
+      </div>
+
+      <!-- SOCIALS & CONTACT TAB -->
+      <div class="admin-section" id="tab-socials">
+        <div class="admin-section-title">Social & Contact Info</div>
+        <div class="admin-grid">
+          <div class="admin-field">
+            <label class="admin-label">Instagram URL</label>
+            <input class="admin-input-dark" id="setting-insta" value="https://instagram.com/poojajaiswani.in">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Facebook URL</label>
+            <input class="admin-input-dark" id="setting-fb" value="">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">WhatsApp Number (with country code)</label>
+            <input class="admin-input-dark" id="setting-wa" value="918770329935">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Phone Display</label>
+            <input class="admin-input-dark" id="setting-phone" value="+91 8770329935">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Email</label>
+            <input class="admin-input-dark" id="setting-email" value="yourname@email.com">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Address</label>
+            <input class="admin-input-dark" id="setting-address" value="Rajmahal Road, Tikamgarh">
+          </div>
+        </div>
+        <button class="admin-save-btn" onclick="saveSocials()">Save Contact Info <span class="admin-success" id="socials-success">✓ Saved!</span></button>
+      </div>
+
+      <!-- FRONTEND CONTROL TAB -->
+      <div class="admin-section" id="tab-frontend">
+        <div class="admin-section-title">🎨 Frontend Control Panel</div>
+        <div style="font-size:0.65rem;color:rgba(245,240,232,0.35);letter-spacing:0.1em;margin-bottom:2rem;">Every change saves instantly and reflects live on the website.</div>
+
+        <!-- STATS -->
+        <div style="margin-bottom:2.5rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(201,168,76,0.2);">📊 About Stats</div>
+          <div class="admin-grid">
+            <div class="admin-field">
+              <label class="admin-label">Stat 1 — Number</label>
+              <input class="admin-input-dark" id="fe-stat1-num" value="10+">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Stat 1 — Label</label>
+              <input class="admin-input-dark" id="fe-stat1-label" value="Years of Style">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Stat 2 — Number</label>
+              <input class="admin-input-dark" id="fe-stat2-num" value="1000+">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Stat 2 — Label</label>
+              <input class="admin-input-dark" id="fe-stat2-label" value="Happy Customers">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Stat 3 — Number</label>
+              <input class="admin-input-dark" id="fe-stat3-num" value="100s">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Stat 3 — Label</label>
+              <input class="admin-input-dark" id="fe-stat3-label" value="Unique Pieces">
+            </div>
+          </div>
+          <button class="admin-save-btn" onclick="saveFEStats()">Save Stats <span class="admin-success" id="fe-stats-success">✓ Saved!</span></button>
+        </div>
+
+        <!-- TESTIMONIALS -->
+        <div style="margin-bottom:2.5rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(201,168,76,0.2);">💬 Testimonials (3 cards)</div>
+          <div style="display:flex;flex-direction:column;gap:1.5rem;" id="fe-testimonials-list">
+            <!-- rendered by JS -->
+          </div>
+          <button class="admin-save-btn" onclick="saveFETestimonials()">Save Testimonials <span class="admin-success" id="fe-testi-success">✓ Saved!</span></button>
+        </div>
+
+        <!-- MARQUEE -->
+        <div style="margin-bottom:2.5rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(201,168,76,0.2);">🎞 Scrolling Banner Text</div>
+          <div style="font-size:0.6rem;color:rgba(245,240,232,0.3);margin-bottom:1rem;letter-spacing:0.08em;">Comma-separated items. Example: Kurtis, Lehengas, Party Wear</div>
+          <textarea class="admin-input-dark" id="fe-marquee" rows="2" style="resize:vertical;width:100%;"></textarea>
+          <button class="admin-save-btn" onclick="saveFEMarquee()">Save Banner <span class="admin-success" id="fe-marquee-success">✓ Saved!</span></button>
+        </div>
+
+        <!-- SECTION TITLES -->
+        <div style="margin-bottom:2.5rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(201,168,76,0.2);">📝 Section Headings</div>
+          <div class="admin-grid">
+            <div class="admin-field">
+              <label class="admin-label">Collections Section Label</label>
+              <input class="admin-input-dark" id="fe-sec-collections-label" value="Collections">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Collections Section Title</label>
+              <input class="admin-input-dark" id="fe-sec-collections-title" value="Shop by Category">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Shop Section Label</label>
+              <input class="admin-input-dark" id="fe-sec-shop-label" value="Our Products">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Shop Section Title</label>
+              <input class="admin-input-dark" id="fe-sec-shop-title" value="Featured Pieces">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">About Section Label</label>
+              <input class="admin-input-dark" id="fe-sec-about-label" value="Our Story">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">About Section Title (Line 1)</label>
+              <input class="admin-input-dark" id="fe-sec-about-title" value="Fashion rooted in tradition, crafted for today">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Testimonials Title</label>
+              <input class="admin-input-dark" id="fe-sec-testi-title" value="Loved by Women Everywhere">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Contact Section Title</label>
+              <input class="admin-input-dark" id="fe-sec-contact-title" value="Visit Us or Order Online">
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Footer Description</label>
+              <textarea class="admin-input-dark" id="fe-footer-desc" rows="2" style="resize:vertical;">Women's fashion rooted in elegance, crafted for the modern Indian woman.</textarea>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Footer Copyright Text</label>
+              <input class="admin-input-dark" id="fe-footer-copy" value="© 2025 Pooja Jaiswani. All rights reserved.">
+            </div>
+          </div>
+          <button class="admin-save-btn" onclick="saveFESections()">Save Section Texts <span class="admin-success" id="fe-sections-success">✓ Saved!</span></button>
+        </div>
+
+        <!-- COLORS -->
+        <div style="margin-bottom:2.5rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(201,168,76,0.2);">🎨 Color Scheme</div>
+          <div style="font-size:0.6rem;color:rgba(245,240,232,0.3);margin-bottom:1rem;letter-spacing:0.08em;">Change the entire website's color palette instantly.</div>
+          <div class="admin-grid">
+            <div class="admin-field">
+              <label class="admin-label">Primary Color (Maroon)</label>
+              <div style="display:flex;gap:0.8rem;align-items:center;">
+                <input type="color" id="fe-color-maroon" value="#6B1E2A" style="width:48px;height:36px;border:none;background:none;cursor:none;border-radius:2px;">
+                <input class="admin-input-dark" id="fe-color-maroon-hex" value="#6B1E2A" style="flex:1;" oninput="syncColor('maroon')">
+              </div>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Background Color (Cream)</label>
+              <div style="display:flex;gap:0.8rem;align-items:center;">
+                <input type="color" id="fe-color-cream" value="#F5F0E8" style="width:48px;height:36px;border:none;background:none;cursor:none;border-radius:2px;">
+                <input class="admin-input-dark" id="fe-color-cream-hex" value="#F5F0E8" style="flex:1;" oninput="syncColor('cream')">
+              </div>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Accent Color (Gold)</label>
+              <div style="display:flex;gap:0.8rem;align-items:center;">
+                <input type="color" id="fe-color-gold" value="#C9A84C" style="width:48px;height:36px;border:none;background:none;cursor:none;border-radius:2px;">
+                <input class="admin-input-dark" id="fe-color-gold-hex" value="#C9A84C" style="flex:1;" oninput="syncColor('gold')">
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+            <button class="admin-save-btn" onclick="saveFEColors()">Apply Colors <span class="admin-success" id="fe-colors-success">✓ Applied!</span></button>
+            <button class="admin-save-btn" style="background:rgba(255,255,255,0.05);border:1px solid rgba(107,30,42,0.4);" onclick="resetColors()">Reset to Default</button>
+          </div>
+        </div>
+
+        <!-- ANNOUNCEMENT BANNER -->
+        <div style="margin-bottom:2.5rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(201,168,76,0.2);">📢 Top Announcement Banner</div>
+          <div class="admin-grid">
+            <div class="admin-field admin-full-width">
+              <label class="admin-label">Announcement Text (leave empty to hide)</label>
+              <input class="admin-input-dark" id="fe-announcement" placeholder="e.g. Free delivery on orders above ₹999 · New collection launched!">
+            </div>
+          </div>
+          <button class="admin-save-btn" onclick="saveFEAnnouncement()">Save Announcement <span class="admin-success" id="fe-ann-success">✓ Saved!</span></button>
+        </div>
+
+        <!-- CATEGORIES EDITOR -->
+        <div style="margin-bottom:2.5rem;">
+          <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(201,168,76,0.2);">🗂 Category Cards</div>
+          <div id="fe-categories-list" style="display:flex;flex-direction:column;gap:1rem;"></div>
+          <button class="admin-save-btn" onclick="saveFECategories()">Save Categories <span class="admin-success" id="fe-cat-success">✓ Saved!</span></button>
+        </div>
+
+      </div>
+
+      <!-- SECURITY TAB -->
+      <div class="admin-section" id="tab-security">
+        <div class="admin-section-title">Change Password</div>
+        <div class="admin-grid" style="max-width:500px">
+          <div class="admin-field">
+            <label class="admin-label">Current Password</label>
+            <input class="admin-input-dark" type="password" id="sec-current">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">New Password</label>
+            <input class="admin-input-dark" type="password" id="sec-new">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Confirm New Password</label>
+            <input class="admin-input-dark" type="password" id="sec-confirm">
+          </div>
+        </div>
+        <button class="admin-save-btn" onclick="changePassword()">Update Password <span class="admin-success" id="sec-success">✓ Updated!</span></button>
+        <div class="admin-error" id="sec-error" style="display:none; margin-top:0.5rem; text-align:left;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ==================== STORE ====================
+const defaultProducts = [
+  { id: 1, name: 'Embroidered Anarkali', category: 'Anarkali', price: 2499, originalPrice: 3200, image: '', bestseller: true, sale: true, hidden: false },
+  { id: 2, name: 'Floral Palazzo Set', category: 'Palazzo Set', price: 1899, originalPrice: '', image: '', bestseller: true, sale: false, hidden: false },
+  { id: 3, name: 'Silk Kurti Classic', category: 'Kurti', price: 999, originalPrice: 1400, image: '', bestseller: false, sale: true, hidden: false },
+  { id: 4, name: 'Bridal Lehenga Choli', category: 'Lehenga', price: 8500, originalPrice: 11000, image: '', bestseller: true, sale: true, hidden: false },
+  { id: 5, name: 'Casual Cotton Kurti', category: 'Kurti', price: 649, originalPrice: '', image: '', bestseller: false, sale: false, hidden: false },
+  { id: 6, name: 'Indo-Western Coord Set', category: 'Indo-Western', price: 3200, originalPrice: 4000, image: '', bestseller: true, sale: true, hidden: false },
+  { id: 7, name: 'Party Wear Gown', category: 'Gown', price: 4500, originalPrice: '', image: '', bestseller: false, sale: false, hidden: false },
+  { id: 8, name: 'Straight Printed Kurti', category: 'Kurti', price: 799, originalPrice: 1100, image: '', bestseller: false, sale: true, hidden: false },
+];
+
+const defaultSettings = {
+  brandName: 'Pooja Jaiswani',
+  tagline: 'Timeless Style',
+  about: 'Pooja Jaiswani is a women\'s fashion brand born in the heart of Tikamgarh, built on years of passion for beautiful, wearable clothing.',
+  hero1: 'Dress with',
+  hero2: 'Timeless',
+  hero3: 'Elegance',
+  heroSub: 'Curated women\'s wear crafted for the woman who values grace, quality, and enduring style.',
+};
+
+const defaultSocials = {
+  insta: 'https://instagram.com/poojajaiswani.in',
+  fb: '',
+  wa: '918770329935',
+  phone: '+91 8770329935',
+  email: 'yourname@email.com',
+  address: 'Rajmahal Road, Tikamgarh',
+};
+
+function loadData() {
+  try {
+    return {
+      products: JSON.parse(localStorage.getItem('pj_products')) || defaultProducts,
+      settings: JSON.parse(localStorage.getItem('pj_settings')) || defaultSettings,
+      socials: JSON.parse(localStorage.getItem('pj_socials')) || defaultSocials,
+      password: localStorage.getItem('pj_password') || 'admin123',
+      cart: JSON.parse(localStorage.getItem('pj_cart')) || [],
+    };
+  } catch(e) {
+    return { products: defaultProducts, settings: defaultSettings, socials: defaultSocials, password: 'admin123', cart: [] };
+  }
+}
+
+function saveData(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch(e) {}
+}
+
+let store = loadData();
+let nextId = store.products.length > 0 ? Math.max(...store.products.map(p => p.id)) + 1 : 1;
+
+// ==================== CURSOR ====================
+const cursor = document.getElementById('cursor');
+const follower = document.getElementById('cursorFollower');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    follower.style.left = e.clientX + 'px';
+    follower.style.top = e.clientY + 'px';
+  }, 60);
+});
+document.querySelectorAll('a, button, [onclick], .product-card, .category-card').forEach(el => {
+  el.addEventListener('mouseenter', () => follower.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => follower.classList.remove('hovering'));
+});
+
+// ==================== LOADER ====================
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1800);
+});
+
+// ==================== NAV SCROLL ====================
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 80) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// ==================== REVEAL ANIMATIONS ====================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ==================== MOBILE MENU ====================
+function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
+function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// ==================== RENDER PRODUCTS ====================
+const categories = [
+  { name: 'Kurtis', sub: 'Everyday Elegance' },
+  { name: 'Lehengas', sub: 'Festive & Bridal' },
+  { name: 'Anarkalis', sub: 'Classic Grace' },
+  { name: 'Indo-Western', sub: 'Modern Fusion' },
+  { name: 'Palazzo Sets', sub: 'Comfort & Style' },
+  { name: 'Gowns & Party', sub: 'Special Occasions' },
+];
+
+function renderCategories(cats) {
+  const useCats = cats || feData.categories || defaultFE.categories;
+  const grid = document.getElementById('categories-grid');
+  grid.innerHTML = useCats.map((cat, i) => `
+    <div class="category-card reveal reveal-delay-${(i%4)+1}" onclick="filterProducts('${cat.name}', null)">
+      <div class="category-img">
+        <svg class="category-placeholder-icon" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#F5F0E8" stroke-width="0.7">
+          <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z"/>
+        </svg>
+      </div>
+      <div class="category-overlay"></div>
+      <div class="category-info">
+        <div class="category-name">${cat.name}</div>
+        <div class="category-count">${cat.sub}</div>
+      </div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.category-card').forEach(el => {
+    revealObserver.observe(el);
+    el.addEventListener('mouseenter', () => follower.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => follower.classList.remove('hovering'));
+  });
+}
+
+let currentFilter = 'all';
+function renderProducts(filter = 'all') {
+  currentFilter = filter;
+  const grid = document.getElementById('products-grid');
+  let prods = store.products.filter(p => !p.hidden);
+  if (filter === 'bestseller') prods = prods.filter(p => p.bestseller);
+  else if (filter === 'sale') prods = prods.filter(p => p.sale);
+  else if (filter !== 'all') prods = prods.filter(p => p.category === filter);
+
+  if (prods.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:4rem; font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--text-light); font-style:italic;">No products found</div>`;
+    return;
+  }
+
+  grid.innerHTML = prods.map((p, i) => `
+    <div class="product-card reveal reveal-delay-${(i%4)+1}">
+      <div class="product-img-wrap">
+        ${p.bestseller ? '<span class="badge-bestseller">Bestseller</span>' : ''}
+        ${p.sale && p.originalPrice ? `<span class="badge-sale">Sale</span>` : ''}
+        <div class="product-img">
+          ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">` : `
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(107,30,42,0.2)" stroke-width="0.8">
+            <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z"/>
+          </svg>`}
+        </div>
+        <div class="product-actions">
+          <button class="action-btn action-btn-cart" onclick="addToCart(${p.id})">Add to Cart</button>
+          <button class="action-btn action-btn-wa" onclick="orderWhatsApp(${p.id})" title="Order on WhatsApp">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--maroon)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-category-tag">${p.category}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">
+          <span class="price-current">₹${Number(p.price).toLocaleString('en-IN')}</span>
+          ${p.originalPrice ? `<span class="price-original">₹${Number(p.originalPrice).toLocaleString('en-IN')}</span>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.product-card').forEach(el => {
+    revealObserver.observe(el);
+    el.addEventListener('mouseenter', () => follower.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => follower.classList.remove('hovering'));
+  });
+}
+
+function filterProducts(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderProducts(filter);
+  document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+}
+
+function loadMore() {
+  const wa = store.socials.wa || '918770329935';
+  window.open(`https://wa.me/${wa}?text=Hi! I'd like to see your full collection.`, '_blank');
+}
+
+// ==================== CART ====================
+function addToCart(id) {
+  const p = store.products.find(x => x.id === id);
+  if (!p) return;
+  const exists = store.cart.find(x => x.id === id);
+  if (exists) exists.qty = (exists.qty || 1) + 1;
+  else store.cart.push({ id, name: p.name, price: p.price, qty: 1 });
+  saveData('pj_cart', store.cart);
+  updateCartUI();
+  openCart();
+}
+
+function updateCartUI() {
+  const total = store.cart.reduce((s, x) => s + x.price * (x.qty || 1), 0);
+  const count = store.cart.reduce((s, x) => s + (x.qty || 1), 0);
+  document.getElementById('cart-count').textContent = count;
+  const container = document.getElementById('cart-items-container');
+  const footer = document.getElementById('cart-footer');
+  if (store.cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+    footer.style.display = 'none';
+  } else {
+    container.innerHTML = store.cart.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-img">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(107,30,42,0.3)" stroke-width="1"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z"/></svg>
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">₹${Number(item.price).toLocaleString('en-IN')} × ${item.qty||1}</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+      </div>
+    `).join('');
+    document.getElementById('cart-total-display').textContent = '₹' + total.toLocaleString('en-IN');
+    footer.style.display = 'block';
+  }
+}
+
+function removeFromCart(id) {
+  store.cart = store.cart.filter(x => x.id !== id);
+  saveData('pj_cart', store.cart);
+  updateCartUI();
+}
+
+function openCart() {
+  document.getElementById('cart-sidebar').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cart-sidebar').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+}
+
+function checkoutWhatsApp() {
+  const wa = store.socials.wa || '918770329935';
+  const items = store.cart.map(x => `• ${x.name} × ${x.qty||1} — ₹${(x.price*(x.qty||1)).toLocaleString('en-IN')}`).join('\n');
+  const total = store.cart.reduce((s, x) => s + x.price * (x.qty||1), 0);
+  const msg = `Hello! I'd like to place an order:\n\n${items}\n\n*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease confirm availability. Thank you!`;
+  window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function orderWhatsApp(id) {
+  const p = store.products.find(x => x.id === id);
+  const wa = store.socials.wa || '918770329935';
+  const msg = `Hi! I'm interested in ordering:\n*${p.name}* — ₹${Number(p.price).toLocaleString('en-IN')}\n\nIs it available?`;
+  window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ==================== CONTACT ====================
+function sendToWhatsApp() {
+  const name = document.getElementById('contactName').value;
+  const phone = document.getElementById('contactPhone').value;
+  const message = document.getElementById('contactMessage').value;
+  const wa = store.socials.wa || '918770329935';
+  const msg = `Hello Pooja Jaiswani!\n\nName: ${name || 'Not provided'}\nPhone: ${phone || 'Not provided'}\n\nMessage: ${message || 'General Inquiry'}`;
+  window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ==================== APPLY SETTINGS ====================
+function applySettings() {
+  const s = store.settings;
+  const so = store.socials;
+  // Hero
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) heroTitle.innerHTML = `${s.hero1 || 'Dress with'}<br><em>${s.hero2 || 'Timeless'}</em><br>${s.hero3 || 'Elegance'}`;
+  const heroSub = document.querySelector('.hero-subtitle');
+  if (heroSub) heroSub.textContent = s.heroSub || '';
+  // About
+  const aboutBody = document.querySelector('.about-body');
+  if (aboutBody) aboutBody.innerHTML = s.about || '';
+  // Contact
+  const addrEl = document.getElementById('contact-address-display');
+  if (addrEl) addrEl.textContent = so.address || '';
+  const phoneEl = document.getElementById('contact-phone-display');
+  if (phoneEl) phoneEl.textContent = so.phone || '';
+  const emailEl = document.getElementById('contact-email-display');
+  if (emailEl) emailEl.textContent = so.email || '';
+  // Links
+  ['insta-nav-link','insta-contact-link','insta-footer-link'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = so.insta || '#';
+  });
+  ['fb-contact-link','fb-footer-link'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = so.fb || '#';
+  });
+  ['wa-contact-link','wa-footer-link'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = `https://wa.me/${so.wa || '918770329935'}`;
+  });
+  const instaDmBtn = document.getElementById('insta-dm-btn');
+  if (instaDmBtn) instaDmBtn.href = so.insta || '#';
+}
+
+// ==================== ADMIN ====================
+function openAdmin(e) {
+  e.preventDefault();
+  document.getElementById('admin-panel').style.display = 'block';
+  document.getElementById('admin-login').style.display = 'flex';
+  document.getElementById('admin-dashboard').style.display = 'none';
+}
+
+function adminLogin() {
+  const input = document.getElementById('admin-password-input').value;
+  if (input === store.password) {
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-dashboard').style.display = 'block';
+    loadAdminProducts();
+    loadAdminSettings();
+  } else {
+    document.getElementById('admin-error').style.display = 'block';
+    document.getElementById('admin-password-input').value = '';
+  }
+}
+
+function closeAdmin() {
+  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('admin-password-input').value = '';
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'frontend') loadFEAdminFields();
+}
+
+function loadAdminSettings() {
+  const s = store.settings;
+  const so = store.socials;
+  document.getElementById('setting-brand-name').value = s.brandName || '';
+  document.getElementById('setting-tagline').value = s.tagline || '';
+  document.getElementById('setting-about').value = s.about || '';
+  document.getElementById('setting-hero1').value = s.hero1 || '';
+  document.getElementById('setting-hero2').value = s.hero2 || '';
+  document.getElementById('setting-hero3').value = s.hero3 || '';
+  document.getElementById('setting-hero-sub').value = s.heroSub || '';
+  document.getElementById('setting-insta').value = so.insta || '';
+  document.getElementById('setting-fb').value = so.fb || '';
+  document.getElementById('setting-wa').value = so.wa || '';
+  document.getElementById('setting-phone').value = so.phone || '';
+  document.getElementById('setting-email').value = so.email || '';
+  document.getElementById('setting-address').value = so.address || '';
+}
+
+function saveSettings() {
+  store.settings = {
+    brandName: document.getElementById('setting-brand-name').value,
+    tagline: document.getElementById('setting-tagline').value,
+    about: document.getElementById('setting-about').value,
+    hero1: document.getElementById('setting-hero1').value,
+    hero2: document.getElementById('setting-hero2').value,
+    hero3: document.getElementById('setting-hero3').value,
+    heroSub: document.getElementById('setting-hero-sub').value,
+  };
+  saveData('pj_settings', store.settings);
+  applySettings();
+  const s = document.getElementById('settings-success');
+  s.style.display = 'inline'; setTimeout(() => s.style.display = 'none', 2500);
+}
+
+function saveSocials() {
+  store.socials = {
+    insta: document.getElementById('setting-insta').value,
+    fb: document.getElementById('setting-fb').value,
+    wa: document.getElementById('setting-wa').value,
+    phone: document.getElementById('setting-phone').value,
+    email: document.getElementById('setting-email').value,
+    address: document.getElementById('setting-address').value,
+  };
+  saveData('pj_socials', store.socials);
+  applySettings();
+  const s = document.getElementById('socials-success');
+  s.style.display = 'inline'; setTimeout(() => s.style.display = 'none', 2500);
+}
+
+function changePassword() {
+  const cur = document.getElementById('sec-current').value;
+  const nw = document.getElementById('sec-new').value;
+  const conf = document.getElementById('sec-confirm').value;
+  const errEl = document.getElementById('sec-error');
+  errEl.style.display = 'none';
+  if (cur !== store.password) { errEl.textContent = 'Current password is incorrect.'; errEl.style.display = 'block'; return; }
+  if (nw.length < 6) { errEl.textContent = 'New password must be at least 6 characters.'; errEl.style.display = 'block'; return; }
+  if (nw !== conf) { errEl.textContent = 'Passwords do not match.'; errEl.style.display = 'block'; return; }
+  store.password = nw;
+  try { localStorage.setItem('pj_password', nw); } catch(e) {}
+  document.getElementById('sec-current').value = '';
+  document.getElementById('sec-new').value = '';
+  document.getElementById('sec-confirm').value = '';
+  const s = document.getElementById('sec-success');
+  s.style.display = 'inline'; setTimeout(() => s.style.display = 'none', 2500);
+}
+
+function loadAdminProducts() {
+  const list = document.getElementById('admin-products-list');
+  if (store.products.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:3rem;color:rgba(245,240,232,0.3);font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;">No products yet. Add your first product!</div>`;
+    return;
+  }
+  list.innerHTML = store.products.map(p => `
+    <div class="admin-product-item" id="admin-item-${p.id}">
+      <div class="admin-product-field">
+        <div class="admin-product-label">Product Name</div>
+        <input class="admin-product-input" value="${p.name}" onchange="updateProduct(${p.id},'name',this.value)">
+      </div>
+      <div class="admin-product-field">
+        <div class="admin-product-label">Category</div>
+        <input class="admin-product-input" value="${p.category}" onchange="updateProduct(${p.id},'category',this.value)">
+      </div>
+      <div class="admin-product-field">
+        <div class="admin-product-label">Price (₹)</div>
+        <input class="admin-product-input" type="number" value="${p.price}" onchange="updateProduct(${p.id},'price',this.value)">
+      </div>
+      <div class="admin-product-field">
+        <div class="admin-product-label">Original Price (₹, optional)</div>
+        <input class="admin-product-input" type="number" value="${p.originalPrice||''}" placeholder="Leave empty if no discount" onchange="updateProduct(${p.id},'originalPrice',this.value)">
+      </div>
+      <div class="admin-product-field" style="grid-column:1/-1">
+        <div class="admin-product-label">Image URL (paste direct image link, or leave empty for placeholder)</div>
+        <input class="admin-product-input" value="${p.image||''}" placeholder="https://example.com/image.jpg" onchange="updateProduct(${p.id},'image',this.value)">
+      </div>
+      <div class="admin-checkbox-row" style="grid-column:1/-1">
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:none">
+          <input type="checkbox" class="admin-checkbox" ${p.bestseller?'checked':''} onchange="updateProduct(${p.id},'bestseller',this.checked)">
+          <span class="admin-checkbox-label">Bestseller</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:none">
+          <input type="checkbox" class="admin-checkbox" ${p.sale?'checked':''} onchange="updateProduct(${p.id},'sale',this.checked)">
+          <span class="admin-checkbox-label">On Sale</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:none">
+          <input type="checkbox" class="admin-checkbox" ${p.hidden?'checked':''} onchange="updateProduct(${p.id},'hidden',this.checked)">
+          <span class="admin-checkbox-label">Hide from Shop</span>
+        </label>
+      </div>
+      <div style="grid-column:1/-1;display:flex;justify-content:flex-end;">
+        <button class="admin-delete-btn" onclick="deleteProduct(${p.id})">Delete Product</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateProduct(id, field, value) {
+  const p = store.products.find(x => x.id === id);
+  if (!p) return;
+  if (field === 'price' || field === 'originalPrice') value = value === '' ? '' : Number(value);
+  p[field] = value;
+  saveData('pj_products', store.products);
+  renderProducts(currentFilter);
+}
+
+function addProduct() {
+  const newP = { id: nextId++, name: 'New Product', category: 'Kurti', price: 999, originalPrice: '', image: '', bestseller: false, sale: false, hidden: false };
+  store.products.push(newP);
+  saveData('pj_products', store.products);
+  loadAdminProducts();
+  renderProducts(currentFilter);
+  document.getElementById('admin-products-list').lastElementChild?.scrollIntoView({ behavior: 'smooth' });
+}
+
+function deleteProduct(id) {
+  if (!confirm('Delete this product? This cannot be undone.')) return;
+  store.products = store.products.filter(x => x.id !== id);
+  saveData('pj_products', store.products);
+  loadAdminProducts();
+  renderProducts(currentFilter);
+}
+
+// ==================== FRONTEND CONTROL ====================
+const defaultFE = {
+  stats: [
+    { num: '10+', label: 'Years of Style' },
+    { num: '1000+', label: 'Happy Customers' },
+    { num: '100s', label: 'Unique Pieces' },
+  ],
+  testimonials: [
+    { stars: '★★★★★', text: 'The quality of the fabric is exceptional. I ordered a kurti set and received so many compliments at the office!', author: 'Priya S. — Tikamgarh' },
+    { stars: '★★★★★', text: 'Ordered a lehenga for my cousin wedding. The fit, the embroidery, the color — everything was perfect. Will definitely order again.', author: 'Neha R. — Sagar' },
+    { stars: '★★★★★', text: 'So glad I found Pooja Jaiswani. The designs are so elegant and the prices are very reasonable. Highly recommend!', author: 'Anjali M. — Jhansi' },
+  ],
+  marquee: 'Kurtis, Lehengas, Palazzo Sets, Anarkalis, Indo-Western, Ethnic Wear, Casual Wear, Party Wear, Timeless Style',
+  sections: {
+    collectionsLabel: 'Collections',
+    collectionsTitle: 'Shop by Category',
+    shopLabel: 'Our Products',
+    shopTitle: 'Featured Pieces',
+    aboutLabel: 'Our Story',
+    aboutTitle: 'Fashion rooted in tradition, crafted for today',
+    testiTitle: 'Loved by Women Everywhere',
+    contactTitle: 'Visit Us or Order Online',
+    footerDesc: "Women's fashion rooted in elegance, crafted for the modern Indian woman. Serving customers from Tikamgarh with love.",
+    footerCopy: '© 2025 Pooja Jaiswani. All rights reserved.',
+  },
+  colors: { maroon: '#6B1E2A', cream: '#F5F0E8', gold: '#C9A84C' },
+  announcement: '',
+  categories: [
+    { name: 'Kurtis', sub: 'Everyday Elegance' },
+    { name: 'Lehengas', sub: 'Festive & Bridal' },
+    { name: 'Anarkalis', sub: 'Classic Grace' },
+    { name: 'Indo-Western', sub: 'Modern Fusion' },
+    { name: 'Palazzo Sets', sub: 'Comfort & Style' },
+    { name: 'Gowns & Party', sub: 'Special Occasions' },
+  ],
+};
+
+function loadFE() {
+  try { return JSON.parse(localStorage.getItem('pj_fe')) || defaultFE; } catch(e) { return defaultFE; }
+}
+let feData = loadFE();
+function saveFEStore() { try { localStorage.setItem('pj_fe', JSON.stringify(feData)); } catch(e) {} }
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return [r,g,b];
+}
+function rgbToHex(r,g,b) {
+  return '#' + [r,g,b].map(x => Math.min(255,Math.max(0,Math.round(x))).toString(16).padStart(2,'0')).join('');
+}
+function lightenHex(hex, amt) { const [r,g,b] = hexToRgb(hex); return rgbToHex(r+amt,g+amt,b+amt); }
+function darkenHex(hex, amt) { const [r,g,b] = hexToRgb(hex); return rgbToHex(r-amt,g-amt,b-amt); }
+function syncColor(type) {
+  const hex = document.getElementById('fe-color-'+type+'-hex').value;
+  const picker = document.getElementById('fe-color-'+type);
+  if (/^#[0-9A-Fa-f]{6}$/.test(hex) && picker) picker.value = hex;
+}
+
+function applyFE() {
+  const fe = feData;
+  // Stats
+  [1,2,3].forEach((n,i) => {
+    const numEl = document.getElementById('stat'+n+'-num');
+    const labEl = document.getElementById('stat'+n+'-label');
+    if (numEl && fe.stats && fe.stats[i]) numEl.textContent = fe.stats[i].num;
+    if (labEl && fe.stats && fe.stats[i]) labEl.textContent = fe.stats[i].label;
+  });
+  // Testimonials
+  [1,2,3].forEach((n,i) => {
+    if (!fe.testimonials || !fe.testimonials[i]) return;
+    const t = fe.testimonials[i];
+    const st = document.getElementById('t'+n+'-stars');
+    const tx = document.getElementById('t'+n+'-text');
+    const au = document.getElementById('t'+n+'-author');
+    if (st) st.textContent = t.stars;
+    if (tx) tx.textContent = t.text;
+    if (au) au.textContent = t.author;
+  });
+  // Marquee
+  if (fe.marquee) {
+    const mt = document.querySelector('.marquee-track');
+    if (mt) {
+      const items = fe.marquee.split(',').map(s=>s.trim()).filter(Boolean);
+      const doubled = [...items,...items];
+      mt.innerHTML = doubled.map(item => '<span class="marquee-item">'+item+'</span><span class="marquee-item marquee-dot">✦</span>').join('');
+    }
+  }
+  // Section texts
+  const sec = fe.sections || {};
+  const setText = (id, val) => { const el=document.getElementById(id); if(el&&val!==undefined) el.textContent=val; };
+  const setHTML = (id, val) => { const el=document.getElementById(id); if(el&&val!==undefined) el.innerHTML=val; };
+  setText('collections-label', sec.collectionsLabel);
+  if (sec.collectionsTitle) setHTML('collections-title', sec.collectionsTitle.replace(/([^ ]+)$/, '<em></em>'));
+  setText('shop-label', sec.shopLabel);
+  if (sec.shopTitle) setHTML('shop-title', sec.shopTitle.replace(/([^ ]+)$/, '<em></em>'));
+  setText('about-label', sec.aboutLabel);
+  if (sec.aboutTitle) setHTML('about-title', sec.aboutTitle);
+  if (sec.testiTitle) setHTML('testi-title', sec.testiTitle.replace(/([^ ]+)$/, '<em></em>'));
+  if (sec.contactTitle) setHTML('contact-title', sec.contactTitle);
+  setText('footer-desc', sec.footerDesc);
+  setText('footer-copy', sec.footerCopy);
+  // Colors
+  if (fe.colors) {
+    const r = document.documentElement.style;
+    if (fe.colors.maroon) {
+      r.setProperty('--maroon', fe.colors.maroon);
+      r.setProperty('--maroon-light', lightenHex(fe.colors.maroon, 20));
+      r.setProperty('--maroon-deep', darkenHex(fe.colors.maroon, 20));
+    }
+    if (fe.colors.cream) {
+      r.setProperty('--cream', fe.colors.cream);
+      r.setProperty('--cream-dark', darkenHex(fe.colors.cream, 8));
+      r.setProperty('--cream-mid', lightenHex(fe.colors.cream, 4));
+    }
+    if (fe.colors.gold) r.setProperty('--gold', fe.colors.gold);
+  }
+  // Announcement
+  const annBar = document.getElementById('announcement-bar');
+  if (annBar) {
+    if (fe.announcement && fe.announcement.trim()) {
+      annBar.textContent = fe.announcement;
+      annBar.style.display = 'block';
+    } else { annBar.style.display = 'none'; }
+  }
+  // Categories
+  if (fe.categories) renderCategories(fe.categories);
+}
+
+function showAdminSuccess(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'inline';
+  setTimeout(() => el.style.display = 'none', 2500);
+}
+
+function saveFEStats() {
+  feData.stats = [1,2,3].map(i => ({
+    num: document.getElementById('fe-stat'+i+'-num').value,
+    label: document.getElementById('fe-stat'+i+'-label').value,
+  }));
+  saveFEStore(); applyFE(); showAdminSuccess('fe-stats-success');
+}
+
+function saveFETestimonials() {
+  feData.testimonials = [1,2,3].map(i => ({
+    stars: document.getElementById('fe-testi-'+i+'-stars').value,
+    text: document.getElementById('fe-testi-'+i+'-text').value,
+    author: document.getElementById('fe-testi-'+i+'-author').value,
+  }));
+  saveFEStore(); applyFE(); showAdminSuccess('fe-testi-success');
+}
+
+function saveFEMarquee() {
+  feData.marquee = document.getElementById('fe-marquee').value;
+  saveFEStore(); applyFE(); showAdminSuccess('fe-marquee-success');
+}
+
+function saveFESections() {
+  feData.sections = {
+    collectionsLabel: document.getElementById('fe-sec-collections-label').value,
+    collectionsTitle: document.getElementById('fe-sec-collections-title').value,
+    shopLabel: document.getElementById('fe-sec-shop-label').value,
+    shopTitle: document.getElementById('fe-sec-shop-title').value,
+    aboutLabel: document.getElementById('fe-sec-about-label').value,
+    aboutTitle: document.getElementById('fe-sec-about-title').value,
+    testiTitle: document.getElementById('fe-sec-testi-title').value,
+    contactTitle: document.getElementById('fe-sec-contact-title').value,
+    footerDesc: document.getElementById('fe-footer-desc').value,
+    footerCopy: document.getElementById('fe-footer-copy').value,
+  };
+  saveFEStore(); applyFE(); showAdminSuccess('fe-sections-success');
+}
+
+function saveFEColors() {
+  feData.colors = {
+    maroon: document.getElementById('fe-color-maroon-hex').value,
+    cream: document.getElementById('fe-color-cream-hex').value,
+    gold: document.getElementById('fe-color-gold-hex').value,
+  };
+  saveFEStore(); applyFE(); showAdminSuccess('fe-colors-success');
+}
+
+function resetColors() {
+  feData.colors = { maroon: '#6B1E2A', cream: '#F5F0E8', gold: '#C9A84C' };
+  saveFEStore(); applyFE(); loadFEAdminFields(); showAdminSuccess('fe-colors-success');
+}
+
+function saveFEAnnouncement() {
+  feData.announcement = document.getElementById('fe-announcement').value;
+  saveFEStore(); applyFE(); showAdminSuccess('fe-ann-success');
+}
+
+function saveFECategories() {
+  const items = document.querySelectorAll('.fe-cat-item');
+  feData.categories = Array.from(items).map(item => ({
+    name: item.querySelector('.fe-cat-name').value,
+    sub: item.querySelector('.fe-cat-sub').value,
+  }));
+  saveFEStore(); applyFE(); showAdminSuccess('fe-cat-success');
+}
+
+function loadFEAdminFields() {
+  const fe = feData;
+  if (fe.stats) [0,1,2].forEach(i => {
+    const ne = document.getElementById('fe-stat'+(i+1)+'-num');
+    const le = document.getElementById('fe-stat'+(i+1)+'-label');
+    if (ne && fe.stats[i]) ne.value = fe.stats[i].num;
+    if (le && fe.stats[i]) le.value = fe.stats[i].label;
+  });
+  const tList = document.getElementById('fe-testimonials-list');
+  if (tList && fe.testimonials) {
+    tList.innerHTML = fe.testimonials.map((t,i) => `
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(107,30,42,0.2);padding:1.5rem;">
+        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Review ${i+1}</div>
+        <div class="admin-grid">
+          <div class="admin-field">
+            <label class="admin-label">Stars</label>
+            <input class="admin-input-dark" id="fe-testi-${i+1}-stars" value="${t.stars}">
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Customer Name</label>
+            <input class="admin-input-dark" id="fe-testi-${i+1}-author" value="${t.author}">
+          </div>
+          <div class="admin-field" style="grid-column:1/-1">
+            <label class="admin-label">Review Text</label>
+            <textarea class="admin-input-dark" id="fe-testi-${i+1}-text" rows="2" style="resize:vertical;">${t.text}</textarea>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  const mq = document.getElementById('fe-marquee');
+  if (mq && fe.marquee) mq.value = fe.marquee;
+  const sec = fe.sections || {};
+  [['fe-sec-collections-label',sec.collectionsLabel],['fe-sec-collections-title',sec.collectionsTitle],
+   ['fe-sec-shop-label',sec.shopLabel],['fe-sec-shop-title',sec.shopTitle],
+   ['fe-sec-about-label',sec.aboutLabel],['fe-sec-about-title',sec.aboutTitle],
+   ['fe-sec-testi-title',sec.testiTitle],['fe-sec-contact-title',sec.contactTitle],
+   ['fe-footer-desc',sec.footerDesc],['fe-footer-copy',sec.footerCopy]].forEach(([id,val]) => {
+    const el = document.getElementById(id); if (el && val!==undefined) el.value = val;
+  });
+  if (fe.colors) ['maroon','cream','gold'].forEach(type => {
+    const hex = document.getElementById('fe-color-'+type+'-hex');
+    const picker = document.getElementById('fe-color-'+type);
+    if (hex && fe.colors[type]) hex.value = fe.colors[type];
+    if (picker && fe.colors[type]) picker.value = fe.colors[type];
+  });
+  const ann = document.getElementById('fe-announcement');
+  if (ann && fe.announcement!==undefined) ann.value = fe.announcement;
+  const catList = document.getElementById('fe-categories-list');
+  if (catList && fe.categories) {
+    catList.innerHTML = fe.categories.map((cat,i) => `
+      <div class="fe-cat-item" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(107,30,42,0.2);padding:1rem;">
+        <div class="admin-field"><label class="admin-label">Category Name</label><input class="admin-input-dark fe-cat-name" value="${cat.name}"></div>
+        <div class="admin-field"><label class="admin-label">Sub-label</label><input class="admin-input-dark fe-cat-sub" value="${cat.sub}"></div>
+      </div>
+    `).join('');
+  }
+  // Bind color pickers
+  setTimeout(() => {
+    ['maroon','cream','gold'].forEach(type => {
+      const picker = document.getElementById('fe-color-'+type);
+      if (picker) picker.addEventListener('input', () => {
+        const hexEl = document.getElementById('fe-color-'+type+'-hex');
+        if (hexEl) hexEl.value = picker.value;
+      });
+    });
+  }, 50);
+}
+
+// Override loadAdminProducts to also load FE fields
+const _origLoadAdmin = loadAdminProducts;
+function loadAdminAll() { loadAdminProducts(); loadAdminSettings(); loadFEAdminFields(); }
+
+// ==================== INIT ====================
+renderCategories(feData.categories || defaultFE.categories);
+renderProducts();
+updateCartUI();
+applySettings();
+applyFE();
+
+
+</script>
+</body>
+</html>
